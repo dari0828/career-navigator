@@ -1,1 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карьерный навигатор — твой спутник по жизни</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0b1a2e; font-family: 'Montserrat', sans-serif; color: #f0e6d3; scroll-behavior: smooth; overflow-x: hidden; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; background: rgba(11, 26, 46, 0.95); backdrop-filter: blur(6px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #f0c06033; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: #f0c060; }
+        .logo i { color: #f0c060; margin-right: 8px; animation: spin 10s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: #f0e6d3; text-decoration: none; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: #f0c060; }
+        .hero { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; background: radial-gradient(circle at 20% 30%, #1a3a5c, #0b1a2e); border-bottom: 3px solid #f0c060; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 900; margin-bottom: 1rem; text-shadow: 0 0 20px #f0c06040; }
+        .hero h1 span { color: #f0c060; }
+        .hero p { font-size: 1.2rem; max-width: 600px; margin-bottom: 2rem; color: #d0c4b0; }
+        .btn { background: #f0c060; border: none; padding: 14px 40px; font-size: 1.2rem; font-weight: 700; color: #0b1a2e; border-radius: 50px; cursor: pointer; transition: 0.3s; box-shadow: 0 0 30px #f0c06050; }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 50px #f0c06080; }
+        section { padding: 4rem 5%; max-width: 1200px; margin: 0 auto; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 2.8rem; text-align: center; margin-bottom: 2rem; color: #f0c060; border-bottom: 2px solid #f0c06040; display: inline-block; padding-bottom: 0.5rem; }
+        .section-title i { margin-right: 10px; }
+        .university-block { background: rgba(255,255,255,0.03); border-radius: 40px; padding: 2rem; backdrop-filter: blur(4px); border: 1px solid #f0c06020; }
+        .university-img { width: 100%; border-radius: 30px; margin-bottom: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .university-text { line-height: 1.8; font-size: 1.05rem; }
+        .university-text h3 { color: #f0c060; margin: 1.5rem 0 0.5rem; }
+        .university-text ul { list-style: none; padding-left: 0; }
+        .university-text ul li { margin-bottom: 0.3rem; padding-left: 1.5rem; position: relative; }
+        .university-text ul li::before { content: "▹"; color: #f0c060; position: absolute; left: 0; }
+        .contacts { background: #1a3a5c; border-radius: 20px; padding: 1rem; margin-top: 1rem; }
+        .test-block { background: rgba(255,255,255,0.02); border-radius: 40px; padding: 2rem; border: 1px solid #f0c06020; }
+        .question { background: #142b40; border-radius: 20px; padding: 1.2rem 1.5rem; margin-bottom: 1.2rem; }
+        .question p { font-weight: 600; margin-bottom: 0.5rem; font-size: 1.05rem; }
+        .options { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+        .options label { display: flex; align-items: center; gap: 0.3rem; background: #1f3b52; padding: 0.3rem 1rem; border-radius: 30px; cursor: pointer; transition: 0.2s; }
+        .options label:hover { background: #f0c06030; }
+        .options input[type="radio"] { accent-color: #f0c060; transform: scale(1.1); }
+        #result { margin-top: 2rem; padding: 1.5rem; background: #1a3a5c; border-radius: 30px; display: none; }
+        #result .type-title { font-size: 2rem; font-weight: 700; color: #f0c060; }
+        .students-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+        .student-card { background: #142b40; border-radius: 25px; overflow: hidden; text-align: center; padding-bottom: 0.8rem; transition: 0.3s; }
+        .student-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        .student-card img { width: 100%; height: 180px; object-fit: cover; }
+        .student-card p { padding: 0.5rem 0; font-weight: 500; color: #f0c060; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+        .video-card { background: #142b40; border-radius: 25px; padding: 1.2rem; text-align: center; transition: 0.3s; }
+        .video-card:hover { transform: scale(1.02); background: #1f3b52; }
+        .video-card a { color: #f0c060; text-decoration: none; font-weight: 600; display: block; margin-top: 0.5rem; }
+        .video-card a i { margin-right: 8px; }
+        footer { text-align: center; padding: 2rem; border-top: 1px solid #f0c06030; font-size: 1.2rem; font-weight: 500; color: #f0c060; }
+        @media (max-width: 700px) { .hero h1 { font-size: 2.5rem; } .nav-links { gap: 1rem; } .section-title { font-size: 2rem; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+<!-- ШАПКА -->
+<nav>
+    <div class="logo"><i class="fas fa-compass"></i> Карьерный навигатор</div>
+    <ul class="nav-links">
+        <li><a href="#university">КБГУ</a></li>
+        <li><a href="#test">Тест</a></li>
+        <li><a href="#students">Фото</a></li>
+        <li><a href="#video">Видео</a></li>
+    </ul>
+</nav>
 
+<!-- ГЛАВНЫЙ ЭКРАН -->
+<div class="hero">
+    <h1>Твой <span>спутник</span> по жизни</h1>
+    <p>Выбор профессии — одно из самых важных решений. Мы поможем найти твой путь.</p>
+    <button class="btn" onclick="document.getElementById('test').scrollIntoView({behavior:'smooth'})">
+        <i class="fas fa-arrow-right"></i> Пройти тест
+    </button>
+</div>
+
+<!-- КБГУ -->
+<section id="university">
+    <h2 class="section-title"><i class="fas fa-university"></i> КБГУ им. Х.М. Бербекова</h2>
+    <div class="university-block">
+        <img src="images/university.jpg" alt="КБГУ" class="university-img">
+        <div class="university-text">
+            <p><strong>Кабардино-Балкарский государственный университет</strong> — это не просто один из старейших вузов Северного Кавказа. Это место, где традиции классического образования встречаются с самыми современными технологиями, а студенты становятся частью большой научной семьи.</p>
+            <p>Основанный в 1957 году, сегодня КБГУ — это крупнейший университет Кабардино-Балкарии, где обучаются более 19 000 студентов, включая около 2 500 иностранцев из 40 стран мира. Университет носит имя Х. М. Бербекова и по праву считается драйвером развития всего региона.</p>
+            <p>Выбор профессии — одно из самых важных решений в жизни. Кабардино-Балкарский государственный университет помогает сделать этот выбор осознанным: ещё в школе, через проекты, олимпиады и общение с учёными.</p>
+            <h3>📅 Как поступить в КБГУ</h3>
+            <p><strong>Приёмная кампания стартует 20 июня 2026 года.</strong></p>
+            <p><strong>Три способа подачи документов:</strong></p>
+            <ul>
+                <li>Лично в приёмную комиссию</li>
+                <li>Онлайн через портал «Госуслуги» («Поступление в вуз онлайн»)</li>
+                <li>Почтой России</li>
+            </ul>
+            <p><strong>Важные даты:</strong></p>
+            <ul>
+                <li>До 25 июля — приём документов на бюджет по ЕГЭ</li>
+                <li>До 15 июля — для поступающих по внутренним испытаниям (СПО)</li>
+                <li>До 29 августа — на контрактную форму</li>
+            </ul>
+            <p><strong>Квоты:</strong></p>
+            <ul>
+                <li>Особая квота (85 мест) — для детей-сирот, инвалидов, ветеранов</li>
+                <li>Отдельная квота (86 мест) — для участников СВО и их детей</li>
+                <li>Целевая квота (112 мест) — по заказам конкретных организаций</li>
+            </ul>
+            <div class="contacts">
+                <p><strong>Адрес приёмной комиссии:</strong> ул. Чернышевского, 173.</p>
+                <p><strong>Горячая линия (многоканальный):</strong> +7 (8662) 42-27-79</p>
+                <p><strong>Дополнительный телефон:</strong> +7 (8662) 42-22-40</p>
+                <p><strong>Электронная почта:</strong> pkkbsu@kbsu.ru</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ТЕСТ (СВЁРНУТЫЙ) -->
+<section id="test">
+    <h2 class="section-title"><i class="fas fa-brain"></i> Какая профессия написана у тебя в ДНК?</h2>
+    <div class="test-block">
+        <p style="text-align:center; margin-bottom:1.5rem; font-size:1.1rem;">Ответьте на 30 вопросов честно. В конце вы узнаете свой тип личности и подходящие профессии.</p>
+        <div style="text-align:center; margin-bottom: 1.5rem;">
+            <button id="toggle-test-btn" class="btn" style="background: #1a3a5c; color:#f0c060; border: 2px solid #f0c060;">
+                <i class="fas fa-chevron-down"></i> Пройти тест
+            </button>
+        </div>
+        <div id="questionsWrapper" style="display: none; animation: fadeIn 0.5s;">
+            <div id="questionsContainer"></div>
+            <button id="result-btn" class="btn" style="display: block; margin: 2rem auto 0;">Узнать результат</button>
+            <div id="result"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ФОТО СТУДЕНТОВ -->
+<section id="students">
+    <h2 class="section-title"><i class="fas fa-users"></i> Студенты КБГУ</h2>
+    <div class="students-grid">
+        <div class="student-card"><img src="images/student1.jpg" alt="Студент 1"><p>Анна, 3 курс, филология</p></div>
+        <div class="student-card"><img src="images/student2.jpg" alt="Студент 2"><p>Марат, 2 курс, инженерия</p></div>
+        <div class="student-card"><img src="images/student3.jpg" alt="Студент 3"><p>Елена, 4 курс, юриспруденция</p></div>
+        <div class="student-card"><img src="images/student4.jpg" alt="Студент 4"><p>Арсен, 1 курс, IT</p></div>
+        <div class="student-card"><img src="images/student5.jpg" alt="Студент 5"><p>Диана, 3 курс, журналистика</p></div>
+        <div class="student-card"><img src="images/student6.jpg" alt="Студент 6"><p>Тимур, 2 курс, экономика</p></div>
+    </div>
+</section>
+
+<!-- ВИДЕО -->
+<section id="video">
+    <h2 class="section-title"><i class="fas fa-video"></i> Интервью со студентами-журналистами</h2>
+    <p style="text-align:center; margin-bottom:1.5rem;">Студенты 3 курса журналистики КБГУ рассказывают о своих профессиях.</p>
+    <div class="video-grid">
+        <div class="video-card">
+            <i class="fas fa-camera" style="font-size:2.5rem; color:#f0c060;"></i>
+            <p><strong>Фотограф</strong></p>
+            <a href="https://vkvideo.ru/video-55381799_456240588" target="_blank"><i class="fas fa-play-circle"></i> Смотреть</a>
+        </div>
+        <div class="video-card">
+            <i class="fas fa-gavel" style="font-size:2.5rem; color:#f0c060;"></i>
+            <p><strong>Юрист</strong></p>
+            <a href="https://vkvideo.ru/video-55381799_456240699?t=5m40s" target="_blank"><i class="fas fa-play-circle"></i> Смотреть</a>
+        </div>
+        <div class="video-card">
+            <i class="fas fa-share-alt" style="font-size:2.5rem; color:#f0c060;"></i>
+            <p><strong>SMM-специалист</strong></p>
+            <a href="https://vkvideo.ru/video-55381799_456240719" target="_blank"><i class="fas fa-play-circle"></i> Смотреть</a>
+        </div>
+    </div>
+</section>
+
+<!-- ФУТЕР -->
+<footer>
+    <i class="fas fa-graduation-cap" style="color:#f0c060;"></i>
+    Поступай правильно — поступай в КБГУ
+</footer>
+
+<script>
+// ================================================================
+// ВОПРОСЫ И ОТВЕТЫ (30 вопросов)
+// ================================================================
+const questions = [
+    "В компании друзей вы чаще всего:",
+    "Если кто-то плачет рядом, вы:",
+    "Вам больше нравится:",
+    "Какой школьный предмет даётся вам легче всего?",
+    "Выходные вы хотите провести:",
+    "Сложную задачку по математике вы:",
+    "На работе (или учёбе) вас бесит:",
+    "Если сломалась кофеварка, вы:",
+    "Вы мечтаете о работе, которая:",
+    "Ваша суперсила:",
+    "Ваша главная слабость:",
+    "Деньги для вас – это:",
+    "Какая надпись на футболке вам ближе?",
+    "Вы бы хотели оставить после себя:",
+    "В каких телепередачах вы зависаете?",
+    "Соседи попросили присмотреть за котом. Вы:",
+    "Вам предлагают 2 работы. Вы выберете ту, где:",
+    "Про вас коллеги скажут:",
+    "Вы выбираете подарок другу. Это будет:",
+    "Ваш любимый способ успокоиться:",
+    "Вы скорее ассоциируете себя с:",
+    "В ссоре вы:",
+    "Вам поручили сделать отчёт. Вы:",
+    "Кто ваш любимый персонаж из мультфильмов?",
+    "Если вы не знаете ответа, вы:",
+    "Вам больше нравится читать:",
+    "Если бы вы делали стартап, вы бы:",
+    "Какая фраза заставляет вас улыбнуться?",
+    "Ваше хобби – это:",
+    "Вы бы предпочли быть:"
+];
+
+const options = [
+    ["а) Организатор тусовки, всех знакомлю и объединяю.", "б) Тот, кто чинит сломавшийся вентилятор или колонку.", "в) Слушаю всех и даю мудрые советы.", "г) Предлагаю поехать куда-то спонтанно или придумать квест.", "д) Сижу в углу с книгой или считаю в уме сдачу в кафе."],
+    ["а) Обниму и переведу тему на смешное.", "б) Растеряюсь, лучше позову кого-то другого.", "в) Выслушаю, напою чаем и помогу разобраться в чувствах.", "г) Вдохновлю его стихами или скажу, что это повод написать картину.", "д) Скажу: «Давай проанализируем причину и устраним её»."],
+    ["а) Управлять людьми и вести за собой.", "б) Копаться в моторе, собирать мебель или работать с паяльником.", "в) Ухаживать за растениями, животными или маленькими детьми.", "г) Рисовать, петь, танцевать, снимать видео.", "д) Работать с таблицами, схемами и цифрами."],
+    ["а) История и обществознание.", "б) Физика и информатика.", "в) Биология и химия.", "г) Литература и МХК.", "д) Математика и алгебра."],
+    ["а) В шумной компании, на вечеринке.", "б) В гараже или за сборкой конструктора.", "в) В парке, в лесу, на даче.", "г) В музее, на концерте или в кино.", "д) Дома за стратегической настолкой или шахматами."],
+    ["а) Обсуждаете с одногруппниками.", "б) Просто берёте и решаете руками.", "в) Терпеливо разбираете, даже если долго.", "г) Ищете красивое, нестандартное решение.", "д) Решаете по алгоритму быстрее всех."],
+    ["а) Когда люди не слушаются и спорят.", "б) Когда инструменты тупые или всё ломается.", "в) Когда кто-то мучает животных или обижает слабых.", "г) Серость, однообразие и отсутствие красоты.", "д) Нелогичность начальства и хаос в документах."],
+    ["а) Вызовете мастера и проконтролируете процесс.", "б) Разберёте её сами, почините, соберёте.", "в) Расстроитесь, но попросите помощи у других.", "г) Попытаетесь её стильно декорировать или превратить в арт-объект.", "д) Сравните цены на новую в Excel и решите, что выгоднее."],
+    ["а) Даёт власть и уважение.", "б) Даёт видимый результат (построил дом – он стоит).", "в) Приносит пользу и делает мир добрее.", "г) Позволяет творить и самовыражаться.", "д) Даёт стабильность, деньги и понятные правила."],
+    ["а) Харизма и дар убеждения.", "б) Золотые руки.", "в) Эмпатия и терпение.", "г) Богатое воображение.", "д) Аналитический склад ума и память."],
+    ["а) Люблю командовать и могу быть деспотичным.", "б) Зацикливаюсь на технике и забываю о чувствах.", "в) Слишком переживаю за других.", "г) Витаю в облаках и опаздываю.", "д) Могу быть занудой и слишком критичным."],
+    ["а) Инструмент статуса.", "б) Средство купить крутую технику.", "в) Способ помочь нуждающимся.", "г) Средство для путешествий и впечатлений.", "д) Главный показатель успеха и учёта."],
+    ["а) «Не влезай – убьёт» (лидерская шутка).", "б) «Мой дом – там, где мой верстак».", "в) «Планета любит заботливых».", "г) «Красота спасёт мир».", "д) «Мне нужны цифры»."],
+    ["а) Политическое наследие или бизнес-империю.", "б) Построенный мост или летающий дрон.", "в) Спасённые жизни и благодарных учеников.", "г) Шедевры искусства или культовые фильмы.", "д) Научный труд или финансовую модель."],
+    ["а) Реалити-шоу и политические дебаты.", "б) «Галилео» и про ремонт.", "в) Документалки про природу и животных.", "г) «Кино в деталях» и модные показы.", "д) «Что? Где? Когда?» и бизнес-каналы."],
+    ["а) Быстро найдёте общий язык с хозяевами и возьмёте плату.", "б) Организуете автокормушку по таймеру.", "в) Будете гладить его каждый час и разговаривать.", "г) Сделаете ему красивую лежанку своими руками.", "д) Составите график кормления в 4 столбика."],
+    ["а) Буду главным.", "б) Буду что-то создавать руками.", "в) Буду помогать людям.", "г) Буду творить без рамок.", "д) Платят больше и есть пенсионный план."],
+    ["а) «Наш генератор идей и переговорщик».", "б) «Без него ничего не работает».", "в) «К нему идёшь за утешением».", "г) «Он всё видит не так, как все».", "д) «Спросите у него – он цифру назовёт»."],
+    ["а) Сертификат на экстрим или крутая книга по лидерству.", "б) Набор отвёрток или умная колонка.", "в) Растение в горшке или спа-комплект.", "г) Картина, билет на выставку.", "д) Деньги в красивой открытке (потому что это рационально)."],
+    ["а) Позвонить кому-то и поболтать.", "б) Что-нибудь построить или переставить мебель.", "в) Обнять кого-то или погладить питомца.", "г) Включить любимую музыку и помечтать.", "д) Сесть и всё распланировать."],
+    ["а) Орлом (вожак).", "б) Роботом (функциональность).", "в) Дельфином (забота).", "г) Павлином (красота).", "д) Совой (мудрость и расчёт)."],
+    ["а) Доказываете свою правоту громко.", "б) Уходите в ремонт и делаете вид, что всё ок.", "в) Сглаживаете углы, пытаетесь помирить.", "г) Делаете это драматично и красиво.", "д) Анализируете причины на холодную голову."],
+    ["а) Распределите задачи между подчинёнными.", "б) Соберёте данные руками быстрее всех.", "в) Спросите, кому помочь, и сделаете это качественно.", "г) Оформите его как арт-проект.", "д) Сделаете идеальную структуру и графики."],
+    ["а) Шрэк (лидер, но справедливый).", "б) Винни-Пух? Нет, скорее Айронмен.", "в) Кот Леопольд («Ребята, давайте жить дружно»).", "г) Живописные герои Студии Гибли.", "д) Шелдон из «Теории большого взрыва»."],
+    ["а) Спросите у знакомых.", "б) Поищете в видеоуроках на YouTube.", "в) Попросите объяснить на пальцах.", "г) Придумаете свой вариант, креативный.", "д) Загуглите точные данные и сравните источники."],
+    ["а) Биографии великих людей.", "б) Технические статьи.", "в) Психологию и про воспитание.", "г) Фантастику или стихи.", "д) Бизнес-литературу и аналитику."],
+    ["а) Нашли инвесторов и команду.", "б) Сделали крутой прототип.", "в) Собрали команду друзей на доверии.", "г) Придумали яркую обложку и слоган.", "д) Просчитали финансовую модель до копейки."],
+    ["а) «Ты мой президент».", "б) «Без тебя бы я этот шкаф не собрал».", "в) «Ты очень чуткий человек».", "г) «Ты гений креатива».", "д) «Твой расчёт был верен на 100%»."],
+    ["а) Спорт или политическая активность.", "б) Моделирование, столярка, ремонт.", "в) Садоводство, кулинария, волонтёрство.", "г) Рисование, фото, танцы.", "д) Шахматы, головоломки, инвестиции."],
+    ["а) Директором завода.", "б) Инженером на этом заводе.", "в) Врачом на заводе.", "г) Художником, который оформляет завод.", "д) Финансовым аналитиком завода."]
+];
+
+// ----- ЛОГИКА СВЁРТЫВАНИЯ ТЕСТА -----
+const toggleBtn = document.getElementById('toggle-test-btn');
+const wrapper = document.getElementById('questionsWrapper');
+let testVisible = false;
+let questionsRendered = false;
+
+toggleBtn.addEventListener('click', function() {
+    testVisible = !testVisible;
+    if (testVisible) {
+        wrapper.style.display = 'block';
+        toggleBtn.innerHTML = '<i class="fas fa-chevron-up"></i> Свернуть тест';
+        if (!questionsRendered) {
+            renderQuestions();
+            questionsRendered = true;
+        }
+        // Плавный скролл к началу теста
+        setTimeout(() => {
+            document.getElementById('test').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    } else {
+        wrapper.style.display = 'none';
+        toggleBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Пройти тест';
+    }
+});
+
+function renderQuestions() {
+    const container = document.getElementById('questionsContainer');
+    container.innerHTML = '';
+    questions.forEach((q, index) => {
+        const div = document.createElement('div');
+        div.className = 'question';
+        div.innerHTML = `<p>${index+1}. ${q}</p><div class="options">`;
+        const optList = options[index];
+        optList.forEach((opt, oi) => {
+            const letter = String.fromCharCode(65 + oi); // А, Б, В, Г, Д
+            div.innerHTML += `
+                <label>
+                    <input type="radio" name="q${index}" value="${letter}">
+                    ${opt}
+                </label>
+            `;
+        });
+        div.innerHTML += '</div>';
+        container.appendChild(div);
+    });
+}
+
+// ----- ОБРАБОТЧИК РЕЗУЛЬТАТА -----
+document.getElementById('result-btn').addEventListener('click', function() {
+    const resultDiv = document.getElementById('result');
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = '';
+
+    // Считаем количество ответов по буквам
+    const counts = { 'А': 0, 'Б': 0, 'В': 0, 'Г': 0, 'Д': 0 };
+    for (let i = 0; i < questions.length; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected) {
+            const val = selected.value;
+            if (counts.hasOwnProperty(val)) counts[val]++;
+        }
+    }
+
+    // Находим максимум
+    let maxCount = 0;
+    let maxLetter = 'А';
+    for (let letter in counts) {
+        if (counts[letter] > maxCount) {
+            maxCount = counts[letter];
+            maxLetter = letter;
+        }
+    }
+
+    // Проверка на совпадение (универсал)
+    let topLetters = [];
+    for (let letter in counts) {
+        if (counts[letter] === maxCount && maxCount > 0) {
+            topLetters.push(letter);
+        }
+    }
+
+    let resultText = '';
+    if (topLetters.length === 1) {
+        resultText = getResultForLetter(topLetters[0]);
+    } else {
+        // Универсал
+        resultText = `<div class="type-title">🧩 Вы — универсал!</div>
+                      <p>У вас совпало несколько типов: ${topLetters.join(', ')}. Ваше призвание — профессии на стыке.</p>
+                      <div class="professions">`;
+        if (topLetters.includes('Б') && topLetters.includes('Г')) {
+            resultText += '<p>🏛️ <strong>Архитектор, Веб-дизайнер, Инженер-дизайнер</strong></p>';
+        }
+        if (topLetters.includes('Б') && topLetters.includes('Д')) {
+            resultText += '<p>💻 <strong>Программист, финансист в IT, инженер-экономист</strong></p>';
+        }
+        if (topLetters.includes('В') && topLetters.includes('Г')) {
+            resultText += '<p>🎨 <strong>Психолог-арт-терапевт, учитель рисования, ландшафтный архитектор</strong></p>';
+        }
+        if (topLetters.includes('А') && topLetters.includes('В')) {
+            resultText += '<p>🤝 <strong>HR, SMM-менеджер, врач-организатор</strong></p>';
+        }
+        if (topLetters.includes('А') && topLetters.includes('Д')) {
+            resultText += '<p>📊 <strong>Генеральный директор или финансовый директор</strong></p>';
+        }
+        resultText += '</div>';
+    }
+    resultDiv.innerHTML = resultText;
+});
+
+function getResultForLetter(letter) {
+    let title = '', description = '', professions = '';
+    if (letter === 'А') {
+        title = '🦅 Лидер';
+        description = 'Вы — прирождённый организатор и вдохновитель. Любите управлять, вести за собой и принимать решения.';
+        professions = 'Топ-менеджер, предприниматель, политик, HR-директор, тренер по личностному росту, руководитель проекта, адвокат, военный, продакт-менеджер.';
+    } else if (letter === 'Б') {
+        title = '🔧 Технарь';
+        description = 'Вы — мастер на все руки. Любите создавать, чинить, разбираться в механизмах и технологиях.';
+        professions = 'Инженер-конструктор, программист (встраиваемые системы), робототехник, автомеханик, архитектор, строитель, столяр, электрик, специалист по ремонту, фермер (технический).';
+    } else if (letter === 'В') {
+        title = '💚 Гуманитарий-Забота';
+        description = 'Вы — человек с большим сердцем. Любите помогать, заботиться, учить и лечить.';
+        professions = 'Врач (педиатр, терапевт), учитель начальных классов, психолог, ветеринар, эколог, ландшафтный дизайнер, сотрудник соцзащиты, воспитатель, фармацевт.';
+    } else if (letter === 'Г') {
+        title = '🎨 Креатор';
+        description = 'Вы — генератор идей и творец. Любите создавать новое, красивое, нестандартное.';
+        professions = 'Дизайнер (графический, интерьеров, одежды), иллюстратор, копирайтер, SMM-специалист, видеограф, режиссёр, актёр, музыкант, художник, искусствовед, арт-терапевт, маркетолог-креативщик.';
+    } else if (letter === 'Д') {
+        title = '🧮 Аналитик';
+        description = 'Вы — человек точных наук. Любите порядок, цифры, схемы и логику.';
+        professions = 'Финансовый аналитик, бухгалтер, аудитор, экономист, Data Scientist, IT-тестировщик, юрист (договорная работа), научный сотрудник, статистик, логист, бизнес-аналитик.';
+    }
+    return `
+        <div class="type-title">${title}</div>
+        <p>${description}</p>
+        <div class="professions"><strong>🎯 Ваши профессии:</strong> ${professions}</div>
+        <p style="margin-top: 1rem; font-style: italic; color: #d0c4b0;">Ваше кредо: «${letter === 'А' ? 'Я веду людей к цели' : letter === 'Б' ? 'Я создаю и чиню реальный мир' : letter === 'В' ? 'Я дарю заботу и жизнь' : letter === 'Г' ? 'Я создаю новую реальность' : 'Порядок и точность – залог успеха'}»</p>
+    `;
+}
+</script>
+</body>
+</html>
