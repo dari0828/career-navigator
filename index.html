@@ -36,9 +36,22 @@
         .test-block { background: rgba(255,255,255,0.02); border-radius: 40px; padding: 2rem; border: 1px solid #f0c06020; }
         .question { background: #142b40; border-radius: 20px; padding: 1.2rem 1.5rem; margin-bottom: 1.2rem; }
         .question p { font-weight: 600; margin-bottom: 0.5rem; font-size: 1.05rem; }
-        .options { display: flex; flex-wrap: wrap; gap: 0.8rem; }
-        .options label { display: flex; align-items: center; gap: 0.3rem; background: #1f3b52; padding: 0.3rem 1rem; border-radius: 30px; cursor: pointer; transition: 0.2s; }
-        .options label:hover { background: #f0c06030; }
+        .options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.options label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #1f3b52;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.2s;
+    width: 100%;
+}
         .options input[type="radio"] { accent-color: #f0c060; transform: scale(1.1); }
         #result { margin-top: 2rem; padding: 1.5rem; background: #1a3a5c; border-radius: 30px; display: none; }
         #result .type-title { font-size: 2rem; font-weight: 700; color: #f0c060; }
